@@ -1,0 +1,234 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+body {
+  background-color: #0a0814;
+  color: #f1f1f7;
+  overflow-x: hidden;
+}
+/*Hero section */
+.hero-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 24px;
+  /* deep dark purple gradient background */
+  background: radial-gradient(circle at 50% 20%, #200f37 0%, #0a0814 70%);
+}
+/* ambient glow effect*/
+.glow-top {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: traslateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: linear-gradient(135deg, #6829d4, #a855f7);
+  filter: blur(140px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+/* navigation header */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+.logo {
+  font-size: 2rem;
+  font-weight: 800px;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo span {
+  color: #a855f7;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+/* Hero Content Area */
+.hero-content {
+  max-width: 900px;
+  text-align: center;
+  margin-top: 40px;
+  z-index: 1;
+}
+
+/* Pill Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(124, 58, 237, 0.15);
+  border: 2px solid rgba(168, 85, 247, 0.3);
+  color: #c084fc;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+/* main typograpgy*/
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800px;
+  line-height: 1.19;
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+  color: #ffffff;
+}
+.hero-title span {
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 50%, #e879f9 100%);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #94a3b8;
+  color: #94a3b8;
+  line-height: 1.6;
+  max-width: 720px;
+  margin: 0 auto 36px auto;
+}
+
+/* Simplified CTA Buttons Section */
+.cta-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 36px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(124, 58, 237, 0.6);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Platform Pills / Tech Highlights */
+.integrations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.integrations-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.platform-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.platform-chip {
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: rgba(20, 16, 38, 0.8);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.4rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  .cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+  .nav-links {
+    display: none;
+  }
+}
+.footer {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  top: 700px;
+  height: 25px;
+  width: 100%;
+  background-color: #0a0814;
+  color: #e2e8f0;
+  
+
+}
