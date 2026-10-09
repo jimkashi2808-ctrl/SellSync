@@ -3,105 +3,333 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Analytics & Revenue-SellSync</title>
+    <title>SellSync - Simple Store Filter Analytics</title>
+    <style>
+      /* Basic Resets & Simple Styling */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: #0a0814;
+        color: #ffffff;
+        padding: 20px;
+      }
+
+      /* Top Navigation Bar */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background-color: #150f2a;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        border: 1px solid #7c3aed;
+      }
+
+      .logo {
+        font-size: 22px;
+        font-weight: bold;
+        color: #ffffff;
+        text-decoration: none;
+      }
+
+      .logo span {
+        color: #a855f7;
+      }
+
+      .nav-btn {
+        color: #ffffff;
+        background-color: #7c3aed;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-bottom: 8px;
+        color: #a855f7;
+      }
+
+      p.subtitle {
+        color: #aaaaaa;
+        margin-bottom: 25px;
+      }
+
+      /* Store Selection Dropdown Box */
+      .filter-box {
+        background-color: #150f2a;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #7c3aed;
+        margin-bottom: 25px;
+      }
+
+      .filter-box label {
+        font-size: 16px;
+        font-weight: bold;
+        margin-right: 15px;
+      }
+
+      .filter-box select {
+        padding: 10px 15px;
+        font-size: 15px;
+        border-radius: 6px;
+        background-color: #0a0814;
+        color: #ffffff;
+        border: 1px solid #a855f7;
+        cursor: pointer;
+      }
+
+      /* Simple Summary Box Cards */
+      .cards-wrapper {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+      }
+
+      .card {
+        flex: 1;
+        min-width: 200px;
+        background-color: #150f2a;
+        padding: 18px;
+        border-radius: 10px;
+        border: 1px solid #332255;
+      }
+
+      .card h3 {
+        font-size: 14px;
+        color: #aaaaaa;
+        margin-bottom: 8px;
+      }
+
+      .card p {
+        font-size: 22px;
+        font-weight: bold;
+        color: #a855f7;
+      }
+
+      /* Simple Customer Data Table */
+      .table-wrapper {
+        background-color: #150f2a;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #332255;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+      }
+
+      th,
+      td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #22153b;
+      }
+
+      th {
+        background-color: #20133c;
+        color: #a855f7;
+      }
+
+      /* Status Badges */
+      .badge {
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 13px;
+      }
+
+      .shipped {
+        background-color: #14532d;
+        color: #4ade80;
+      }
+
+      .pending {
+        background-color: #713f12;
+        color: #fde047;
+      }
+    </style>
   </head>
   <body>
+    <!-- Top Navbar -->
+    <div class="navbar">
+      <a href="index.html" class="logo">Sell<span>Sync</span></a>
+      <a href="index.html" class="nav-btn">← Home Page</a>
+    </div>
+
     <div class="container">
-      <!-- Header ---->
-      <div class="header">
-        <a href="index.html" class="logo">Sell<span>Sync</span></a>
-        <a href="index.html" class="back-btn"><- Back to home</a>
-      </div>
-      <!--Seller Revenue-->
-      <h2 class="section-title">Seller Overview & Generated Revenue</h2>
-      <div class="metrics-grid">
-        <div class="card">
-          <div class="card-title">Total Revenue Generated</div>
-          <div class="card-value highlight">$48,250.00</div>
-          <div class="card-sub">+18.4% this month</div>
-        </div>
+      <h1>Store Analytics & Customer Data</h1>
+      <p class="subtitle">
+        Select a store from the dropdown below to view specific store details.
+      </p>
 
-        <div class="card">
-          <div class="card-title">Total Processed Orders</div>
-          <div class="card-value">1,240</div>
-          <div class="card-sub">99.4% Sync Accuracy</div>
-        </div>
-
-        <div class="card">
-          <div class="card-title">Ready for Shipping</div>
-          <div class="card-value">42</div>
-          <div class="card-sub" style="color: #fde047">Action Required</div>
-        </div>
-
-        <div class="card">
-          <div class="card-title">Delivered Today</div>
-          <div class="card-value">188</div>
-          <div class="card-sub">+24 from yesterday</div>
-        </div>
+      <!-- Store Selector Dropdown -->
+      <div class="filter-box">
+        <label for="storeSelect">Select Your Store:</label>
+        <select id="storeSelect" onchange="filterStoreData()">
+          <option value="all">All Stores (Overview)</option>
+          <option value="Shopify">Shopify Store</option>
+          <option value="Amazon">Amazon SP-API</option>
+          <option value="Etsy">Etsy Store Front</option>
+          <option value="eBay">eBay Merchant</option>
+        </select>
       </div>
 
-      <!-- Orders Dispatch Table -->
-      <h2 class="section-title">Live Parcel Dispatch & Delivery Tracker</h2>
-      <div class="table-container">
+      <!-- Quick Stats Cards -->
+      <div class="cards-wrapper">
+        <div class="card">
+          <h3>Selected Store</h3>
+          <p id="cardStoreName">All Stores</p>
+        </div>
+        <div class="card">
+          <h3>Total Orders</h3>
+          <p id="cardTotalOrders">1,240</p>
+        </div>
+        <div class="card">
+          <h3>Estimated Revenue</h3>
+          <p id="cardRevenue">$48,250</p>
+        </div>
+      </div>
+
+      <!-- Order Data Table -->
+      <div class="table-wrapper">
+        <h2>Recent Orders & Status</h2>
+        <br />
         <table>
           <thead>
             <tr>
               <th>Order ID</th>
-              <th>Store Platform</th>
-              <th>Customer</th>
+              <th>Store Name</th>
+              <th>Customer Name</th>
+              <th>Delivery Address</th>
               <th>Status</th>
-              <th>Last Log Timestamp</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>#SH-9021</td>
-              <td>Shopify Store</td>
-              <td>Alex Rivera</td>
-              <td>
-                <span class="badge-status status-delivered">Delivered</span>
-              </td>
-              <td>Today, 14:22 PM</td>
-            </tr>
-            <tr>
-              <td>#AMZ-4410</td>
-              <td>Amazon SP-API</td>
-              <td>Sarah Jenkins</td>
-              <td>
-                <span class="badge-status status-ready">Ready for Shipped</span>
-              </td>
-              <td>Today, 15:05 PM</td>
-            </tr>
-            <tr>
-              <td>#ET-8812</td>
-              <td>Etsy Store Front</td>
-              <td>Michael Scott</td>
-              <td>
-                <span class="badge-status status-delivered">Delivered</span>
-              </td>
-              <td>Today, 11:40 AM</td>
-            </tr>
-            <tr>
-              <td>#EB-3091</td>
-              <td>eBay Merchant</td>
-              <td>Emma Watson</td>
-              <td>
-                <span class="badge-status status-ready">Ready for Shipped</span>
-              </td>
-              <td>Today, 16:10 PM</td>
-            </tr>
-            <tr>
-              <td>#SH-9025</td>
-              <td>Shopify Store</td>
-              <td>David Miller</td>
-              <td>
-                <span class="badge-status status-delivered">Delivered</span>
-              </td>
-              <td>Today, 09:15 AM</td>
-            </tr>
+          <tbody id="ordersTableBody">
+            <!-- Rows inserted dynamically using JavaScript below -->
           </tbody>
         </table>
       </div>
     </div>
+
+    <!-- Simple JavaScript Logic -->
+    <script>
+      // List of store orders with customer information
+      const allOrders = [
+        {
+          id: "#SH-101",
+          store: "Shopify",
+          customer: "Alex Rivera",
+          address: "123 Main St, New York, NY",
+          status: "Shipped",
+        },
+        {
+          id: "#AMZ-204",
+          store: "Amazon",
+          customer: "Sarah Jenkins",
+          address: "456 Oak Ave, Los Angeles, CA",
+          status: "Pending",
+        },
+        {
+          id: "#ET-309",
+          store: "Etsy",
+          customer: "Michael Scott",
+          address: "1725 Slough Ave, Scranton, PA",
+          status: "Shipped",
+        },
+        {
+          id: "#EB-412",
+          store: "eBay",
+          customer: "Emma Watson",
+          address: "789 Pine Rd, Chicago, IL",
+          status: "Pending",
+        },
+        {
+          id: "#SH-102",
+          store: "Shopify",
+          customer: "David Miller",
+          address: "321 Elm St, Miami, FL",
+          status: "Shipped",
+        },
+        {
+          id: "#AMZ-205",
+          store: "Amazon",
+          customer: "Jessica Taylor",
+          address: "654 Maple Dr, Seattle, WA",
+          status: "Shipped",
+        },
+      ];
+
+      // Function to display table rows and update summary cards
+      function filterStoreData() {
+        const selectedStore = document.getElementById("storeSelect").value;
+        const tableBody = document.getElementById("ordersTableBody");
+
+        // Clear current table rows
+        tableBody.innerHTML = "";
+
+        let filteredList = [];
+
+        if (selectedStore === "all") {
+          filteredList = allOrders;
+          document.getElementById("cardStoreName").innerText = "All Stores";
+          document.getElementById("cardTotalOrders").innerText = "1,240";
+          document.getElementById("cardRevenue").innerText = "$48,250";
+        } else {
+          // Filter orders based on chosen store
+          filteredList = allOrders.filter(
+            (order) => order.store === selectedStore,
+          );
+          document.getElementById("cardStoreName").innerText = selectedStore;
+          document.getElementById("cardTotalOrders").innerText =
+            filteredList.length + " Orders";
+
+          // Simple mock revenue calculations per store
+          if (selectedStore === "Shopify")
+            document.getElementById("cardRevenue").innerText = "$19,300";
+          else if (selectedStore === "Amazon")
+            document.getElementById("cardRevenue").innerText = "$14,475";
+          else if (selectedStore === "Etsy")
+            document.getElementById("cardRevenue").innerText = "$9,650";
+          else if (selectedStore === "eBay")
+            document.getElementById("cardRevenue").innerText = "$4,825";
+        }
+
+        // Add filtered rows into the table
+        filteredList.forEach((order) => {
+          const badgeClass =
+            order.status === "Shipped" ? "badge shipped" : "badge pending";
+
+          const rowHTML = `
+          <tr>
+            <td>${order.id}</td>
+            <td><strong>${order.store}</strong></td>
+            <td>${order.customer}</td>
+            <td>${order.address}</td>
+            <td><span class="${badgeClass}">${order.status}</span></td>
+          </tr>
+        `;
+          tableBody.innerHTML += rowHTML;
+        });
+      }
+
+      // Load initial data when page opens
+      filterStoreData();
+    </script>
   </body>
 </html>

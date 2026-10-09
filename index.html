@@ -105,6 +105,18 @@
         color: #a855f7;
       }
 
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .user-greeting {
+        color: #c084fc;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
       .btn-login {
         padding: 8px 20px;
         font-size: 0.9rem;
@@ -127,7 +139,7 @@
       .sidebar {
         position: fixed;
         top: 0;
-        left: -280px; /* Hidden off-screen by default */
+        left: -280px;
         width: 280px;
         height: 100%;
         background: rgba(15, 11, 28, 0.95);
@@ -141,7 +153,6 @@
         flex-direction: column;
       }
 
-      /* Open Sidebar when active */
       .sidebar.active {
         left: 0;
       }
@@ -350,6 +361,76 @@
         gap: 8px;
       }
 
+      /* Modal Styling */
+      .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+      }
+
+      .modal-card {
+        background: #150f2a;
+        border: 1px solid #7c3aed;
+        border-radius: 16px;
+        padding: 32px;
+        width: 100%;
+        max-width: 440px;
+        position: relative;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        color: #94a3b8;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+        text-align: left;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 0.85rem;
+        color: #cbd5e1;
+        margin-bottom: 6px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        background: #0a0814;
+        border: 1px solid #a855f7;
+        color: #fff;
+        font-size: 0.95rem;
+        outline: none;
+      }
+
+      .modal-btn {
+        width: 100%;
+        padding: 12px;
+        background: #7c3aed;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 10px;
+      }
+
       @media (max-width: 768px) {
         .hero-title {
           font-size: 2.4rem;
@@ -382,7 +463,7 @@
       <ul class="sidebar-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="analytics.html">📊 Revenue & Analytics</a></li>
-        <li><a href="#chatbot">🤖 AI Assistant</a></li>
+        <li><a href="#demo" onclick="openModal('demo')">▶ Watch Demo</a></li>
       </ul>
     </div>
 
@@ -399,7 +480,14 @@
         </div>
 
         <div class="nav-actions">
-          <a href="#login" class="btn-login">Login</a>
+          <span id="userGreeting" class="user-greeting"></span>
+          <button
+            class="btn-login"
+            id="loginNavBtn"
+            onclick="openModal('login')"
+          >
+            Login / Register
+          </button>
         </div>
       </nav>
 
@@ -417,15 +505,16 @@
         <p class="hero-subtitle">
           Eliminate portal switching[cite: 2]. SellSync consolidates your
           Shopify, Amazon, Etsy, and eBay stores[cite: 2] into single-context
-          summaries with automated tracking and live dispatch status
-          mapping[cite: 1, 2].
+          summaries with automated tracking and live dispatch status mapping
         </p>
 
         <div class="cta-group">
           <a href="analytics.html" class="btn-primary">
             <span>Start Now</span> ➔
           </a>
-          <a href="#demo" class="btn-secondary"> ▶ <span>Watch Demo</span> </a>
+          <button class="btn-secondary" onclick="openModal('demo')">
+            ▶ <span>Watch Demo</span>
+          </button>
         </div>
 
         <div class="integrations">
@@ -433,19 +522,176 @@
           <div class="platform-badges">
             <div class="platform-chip">🛒 Shopify</div>
             <div class="platform-chip">📦 Amazon SP-API</div>
-            <div class="platform-chip">Meesho </div>
-            <div class="platform-chip">Flipkart</div>
-            <div class="platform-chip">JioMart</div>
+            <div class="platform-chip">🎨 Meesho</div>
+            <div class="platform-chip">🏷️ FLipkart</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Simple JavaScript to Open/Close Sidebar -->
+    <!-- Login/Register Modal -->
+    <div class="modal-backdrop" id="authModal">
+      <div class="modal-card">
+        <span class="modal-close" onclick="closeModal('authModal')">✕</span>
+        <h2 id="modalTitle" style="margin-bottom: 20px; color: #a855f7">
+          User Login
+        </h2>
+
+        <form id="authForm" onsubmit="handleAuth(event)">
+          <div class="form-group" id="nameGroup" style="display: none">
+            <label>Full Name</label>
+            <input type="text" id="authName" placeholder="John Doe" />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              id="authEmail"
+              required
+              placeholder="name@example.com"
+            />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              id="authPassword"
+              required
+              placeholder="••••••••"
+            />
+          </div>
+          <button type="submit" class="modal-btn" id="submitBtn">Login</button>
+        </form>
+
+        <p
+          style="
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-align: center;
+          "
+        >
+          <span id="toggleText">Don't have an account?</span>
+          <a
+            href="#"
+            onclick="toggleAuthMode()"
+            style="color: #c084fc"
+            id="toggleLink"
+            >Register</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- Demo Video Modal -->
+    <div class="modal-backdrop" id="demoModal">
+      <div class="modal-card" style="max-width: 720px">
+        <span class="modal-close" onclick="closeModal('demoModal')">✕</span>
+        <h2 style="margin-bottom: 15px; color: #a855f7">
+          SellSync Platform Tutorial
+        </h2>
+        <p style="color: #94a3b8; margin-bottom: 20px">
+          Learn how SellSync unifies order streams across platforms[cite: 1, 2].
+        </p>
+        <div
+          style="
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+          "
+        >
+          <iframe
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+            "
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Functions -->
     <script>
+      let isLoginMode = true;
+
       function toggleSidebar() {
         document.getElementById("sidebar").classList.toggle("active");
         document.getElementById("overlay").classList.toggle("active");
+      }
+
+      function openModal(type) {
+        if (type === "login")
+          document.getElementById("authModal").style.display = "flex";
+        if (type === "demo")
+          document.getElementById("demoModal").style.display = "flex";
+        // Close sidebar if open
+        document.getElementById("sidebar").classList.remove("active");
+        document.getElementById("overlay").classList.remove("active");
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+      }
+
+      function toggleAuthMode() {
+        isLoginMode = !isLoginMode;
+        document.getElementById("modalTitle").innerText = isLoginMode
+          ? "User Login"
+          : "Create Account";
+        document.getElementById("nameGroup").style.display = isLoginMode
+          ? "none"
+          : "block";
+        document.getElementById("submitBtn").innerText = isLoginMode
+          ? "Login"
+          : "Register";
+        document.getElementById("toggleText").innerText = isLoginMode
+          ? "Don't have an account?"
+          : "Already registered?";
+        document.getElementById("toggleLink").innerText = isLoginMode
+          ? "Register"
+          : "Login";
+      }
+
+      async function handleAuth(event) {
+        event.preventDefault();
+        const email = document.getElementById("authEmail").value;
+        const password = document.getElementById("authPassword").value;
+        const name = document.getElementById("authName").value;
+
+        const endpoint = isLoginMode ? "/api/login" : "/api/register";
+        const payload = isLoginMode
+          ? { email, password }
+          : { name, email, password };
+
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await response.json();
+          alert(data.message);
+
+          if (data.success) {
+            closeModal("authModal");
+            document.getElementById("userGreeting").innerText =
+              `Welcome, ${data.user ? data.user.name : name || "User"}!`;
+            document.getElementById("loginNavBtn").style.display = "none";
+          }
+        } catch (err) {
+          alert(
+            'Server connection error. Please ensure "node server.js" is running.',
+          );
+        }
       }
     </script>
   </body>

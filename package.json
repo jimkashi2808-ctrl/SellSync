@@ -1,0 +1,27 @@
+{
+  "name": "sellsync",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000S\u0000e\u0000l\u0000l\u0000S\u0000y\u0000n\u0000c\u0000\r\u0000 \u0000",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimkashi2808-ctrl/SellSync.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jimkashi2808-ctrl/SellSync/issues"
+  },
+  "homepage": "https://github.com/jimkashi2808-ctrl/SellSync#readme",
+  "dependencies": {
+    "body-parser": "^2.3.0",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "sqlite3": "^6.0.1"
+  }
+}
